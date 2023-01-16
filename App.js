@@ -62,89 +62,58 @@ export default function App() {
         setDisplay(result)
     }
 
-    const NUMBER = [
-        {value: "7"},
-        {value: "8"},
-        {value: "9"},
-        {value: "4"},
-        {value: "5"},
-        {value: "6"},
-        {value: "1"},
-        {value: "2"},
-        {value: "3"},
-    ]
+    const NUMBER = [{value: "7"}, {value: "8"}, {value: "9"}, {value: "4"}, {value: "5"}, {value: "6"}, {value: "1"}, {value: "2"}, {value: "3"},]
 
-    const OPERATION = [
-        {value: "+"},
-        {value: "-"},
-        {value: "/"},
-        {value: "x"}
-    ]
+    const OPERATION = [{value: "+"}, {value: "-"}, {value: "/"}, {value: "x"}]
 
-    return (
-        <View style={styles.container}>
-            <View style={styles.title}>
-                <Text style={styles.titleText}>CALCULATOR</Text>
+    return (<View style={styles.container}>
+        <View style={styles.title}>
+            <Text style={styles.titleText}>CALCULATOR</Text>
+        </View>
+        <View style={styles.display}>
+            <Text style={styles.displayText}>{displayNumber}</Text>
+        </View>
+        <View style={styles.buttonWrapper}>
+            <View style={styles.buttonNumberWrapper}>
+                {NUMBER.map((item, index) => (
+                    <Pressable key={index} style={styles.buttonNumber} android_ripple={{color: 'grey', radius: 35}}
+                               onPress={() => inputDigit(item.value)}>
+                        <Text style={styles.buttonitem}>{item.value}</Text>
+                    </Pressable>))}
+
+                <Pressable style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
+                           onPress={clearCalculator}>
+                    <Text style={styles.buttonitemSp}>CE</Text>
+                </Pressable>
+                <Pressable style={styles.buttonNumber} android_ripple={{color: 'grey', radius: 35}}
+                           onPress={() => inputDigit("0")}>
+                    <Text style={styles.buttonitem}>0</Text>
+                </Pressable>
+                <Pressable style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
+                           onPress={performCalculation}>
+                    <Text style={styles.buttonitemSp}>=</Text>
+                </Pressable>
             </View>
-            <View style={styles.display}>
-                <Text style={styles.displayText}>{displayNumber}</Text>
-            </View>
-            <View style={styles.buttonWrapper}>
-                <View style={styles.buttonNumberWrapper}>
-                    {NUMBER.map((item) => (
-                        <Pressable style={styles.buttonNumber} android_ripple={{color: 'grey', radius: 35}}
-                                   onPress={() => inputDigit(item.value)}>
-                            <Text style={styles.buttonitem}>{item.value}</Text>
-                        </Pressable>
-                    ))}
 
-                    <Pressable style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
-                               onPress={clearCalculator}>
-                        <Text style={styles.buttonitemSp}>CE</Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonNumber} android_ripple={{color: 'grey', radius: 35}}
-                               onPress={() => inputDigit("0")}>
-                        <Text style={styles.buttonitem}>0</Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
-                               onPress={performCalculation}>
-                        <Text style={styles.buttonitemSp}>=</Text>
-                    </Pressable>
-                </View>
-
-                <View style={styles.buttonOpWrapper}>
-                    {OPERATION.map((item) => (
-                        <Pressable style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
-                                   onPress={() => handleOperator(item.value)}>
-                            <Text style={styles.buttonitemSp}>{item.value}</Text>
-                        </Pressable>
-                    ))}
-                </View>
+            <View style={styles.buttonOpWrapper}>
+                {OPERATION.map((item, index) => (
+                    <Pressable key={index} style={styles.buttonOp} android_ripple={{color: 'grey', radius: 35}}
+                               onPress={() => handleOperator(item.value)}>
+                        <Text style={styles.buttonitemSp}>{item.value}</Text>
+                    </Pressable>))}
             </View>
         </View>
-    );
+    </View>);
 }
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
-        flexDirection: "column",
-        flex: 1,
-        backgroundColor: 'grey',
-        justifyContent: 'center',
-    },
-    title: {
-        margin: 20,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    titleText: {
-        color: "white",
-        fontSize: 40,
-        fontWeight: "bold",
-    },
-    display: {
+        display: 'flex', flexDirection: "column", flex: 1, backgroundColor: 'grey', justifyContent: 'center',
+    }, title: {
+        margin: 20, display: "flex", justifyContent: "center", alignItems: "center",
+    }, titleText: {
+        color: "white", fontSize: 40, fontWeight: "bold",
+    }, display: {
         borderWidth: 3,
         backgroundColor: '#fff',
         height: 200,
@@ -156,19 +125,11 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "flex-end",
         alignItems: "flex-end",
-    },
-    displayText: {
-        fontSize: 50,
-        fontWeight: 'bold'
-    },
-    buttonWrapper: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        margin: 20,
-        alignItems: 'center'
-    },
-    buttonOpWrapper: {
+    }, displayText: {
+        fontSize: 50, fontWeight: 'bold'
+    }, buttonWrapper: {
+        display: "flex", flexDirection: "row", justifyContent: "center", margin: 20, alignItems: 'center'
+    }, buttonOpWrapper: {
         flex: 1,
         marginTop: 10,
         display: "flex",
@@ -176,8 +137,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: 'center',
 
-    },
-    buttonOp: {
+    }, buttonOp: {
         borderWidth: 3,
         height: 75,
         marginBottom: 10,
@@ -188,16 +148,14 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
 
-    },
-    buttonNumberWrapper: {
+    }, buttonNumberWrapper: {
         flex: 3,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: 'center',
         flexWrap: "wrap"
-    },
-    buttonNumber: {
+    }, buttonNumber: {
         borderWidth: 3,
         height: 75,
         marginBottom: 10,
@@ -208,17 +166,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
 
-    },
-    buttonitem: {
+    }, buttonitem: {
         fontSize: 30,
     },
 
     buttonitemSp: {
-        fontSize: 30,
-        color: 'white',
-        fontWeight: 'bold'
-    },
-    buttonPress: {
+        fontSize: 30, color: 'white', fontWeight: 'bold'
+    }, buttonPress: {
         height: 75,
         marginBottom: 10,
         width: 75,
